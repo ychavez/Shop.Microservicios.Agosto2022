@@ -10,7 +10,7 @@ public class CatalogContext : ICatalogContext
     public CatalogContext(IConfiguration configuration)
     {
         _configuration = configuration;
-       
+
         var client = new MongoClient(
             _configuration
                 .GetValue<string>("DatabaseSettings:ConnectionString"));
@@ -23,5 +23,6 @@ public class CatalogContext : ICatalogContext
     }
 
     public IMongoCollection<Product> Products { get; set; }
+
 }
 
