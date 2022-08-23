@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{583F536D-4712-4DAE-A45C-4BDA89096846}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{64161F75-2629-41C3-BC69-14F95E018150}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{0E2FB64F-B131-453D-A936-C5A65362D96F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{189D016A-DA88-4400-8A16-BB257D9D57D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{CCF43968-9459-4C5B-9731-358B131A937A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{73E163C5-44A4-4028-BD4C-7336C814EDDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{4BDA2691-ECB6-4BF1-9AD9-366831D3E06B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Api", "Catalog.Api\Catalog.Api.csproj", "{774894AC-15BA-40ED-AFCD-AB3C7C05255E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{774894AC-15BA-40ED-AFCD-AB3C7C05255E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774894AC-15BA-40ED-AFCD-AB3C7C05255E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774894AC-15BA-40ED-AFCD-AB3C7C05255E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774894AC-15BA-40ED-AFCD-AB3C7C05255E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E2FB64F-B131-453D-A936-C5A65362D96F} = {64161F75-2629-41C3-BC69-14F95E018150}
+		{189D016A-DA88-4400-8A16-BB257D9D57D9} = {64161F75-2629-41C3-BC69-14F95E018150}
+		{CCF43968-9459-4C5B-9731-358B131A937A} = {64161F75-2629-41C3-BC69-14F95E018150}
+		{73E163C5-44A4-4028-BD4C-7336C814EDDB} = {64161F75-2629-41C3-BC69-14F95E018150}
+		{4BDA2691-ECB6-4BF1-9AD9-366831D3E06B} = {64161F75-2629-41C3-BC69-14F95E018150}
+		{774894AC-15BA-40ED-AFCD-AB3C7C05255E} = {CCF43968-9459-4C5B-9731-358B131A937A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9BCAB50C-9E18-449E-B0EC-8A4C399BA7BD}
+	EndGlobalSection
+EndGlobal
