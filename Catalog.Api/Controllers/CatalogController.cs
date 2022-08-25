@@ -27,6 +27,7 @@ namespace Catalog.Api.Controllers
         public async Task<ActionResult<IEnumerable<Product>>> Getproducts()
             => Ok(await repository.GetProducts());
 
+        
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Product>> GetProductById(string id)
         {

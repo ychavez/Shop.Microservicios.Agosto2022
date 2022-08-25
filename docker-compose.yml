@@ -10,3 +10,6 @@ services:
   
   catalogdb:
     image: mongo
+
+volumes:
+  mongo_data:

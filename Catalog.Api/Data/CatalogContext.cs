@@ -21,8 +21,6 @@ public class CatalogContext : ICatalogContext
         Products = database.GetCollection<Product>(_configuration
             .GetValue<string>("DatabaseSettings:CollectionName"));
     }
-
     public IMongoCollection<Product> Products { get; set; }
-
 }
 
