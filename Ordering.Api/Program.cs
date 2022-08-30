@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using Ordering.Application;
+using Ordering.Application.Contracts;
+using Ordering.Infrastructure.Persistence;
+using Ordering.Infrastructure.Repositories;
 
 namespace Ordering.Api
 {
@@ -16,6 +20,16 @@ namespace Ordering.Api
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddApplicationServices();
+
+            builder.Services.AddDbContext<OrderContext>(options =>
+            {
+                options.UseSqlServer(builder
+                    .Configuration
+                    .GetConnectionString("OrderingConnectionString"));
+            });
+
+            builder.Services.AddScoped(typeof(IRepositoryBase<>),
+               typeof(RepositoryBase<>));
 
 
             var app = builder.Build();

@@ -33,3 +33,10 @@ services:
     container_name: "basketdb"
     ports:
      - "6379:6379" 
+
+  ordering.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
