@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Ordering.Application.Contracts;
 using Ordering.Domain.Common;
 using Ordering.Infrastructure.Persistence;
 using System.Linq.Expressions;
 
 namespace Ordering.Infrastructure.Repositories;
 
-public class RepositoryBase<T> where T : EntityBase
+public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase
 {
     private readonly OrderContext orderContext;
 
@@ -14,15 +15,8 @@ public class RepositoryBase<T> where T : EntityBase
         this.orderContext = orderContext;
     }
 
-
-    /// <summary>
-    /// Nos trae todos los registros, equivalente a select * from
-    /// </summary>
-    /// <returns></returns>
     public async Task<IReadOnlyList<T>> GetAllAsync()
         => await orderContext.Set<T>().ToListAsync();
-
-
 
     public async Task<IReadOnlyList<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
         => await orderContext.Set<T>().Where(predicate).ToListAsync();
@@ -53,7 +47,6 @@ public class RepositoryBase<T> where T : EntityBase
         foreach (var itemInclude in includeStrings)
             query = query.Include(itemInclude);
 
-
         if (predicate is not null) query = query.Where(predicate);
 
         if (orderBy is not null) return await orderBy(query).ToListAsync();
@@ -65,12 +58,27 @@ public class RepositoryBase<T> where T : EntityBase
     public async Task<T?> GetById(int Id)
            => await orderContext.Set<T>().FindAsync(Id);
 
+    public async Task<T> AddAsync(T entity)
+    {
+        await orderContext.Set<T>().AddAsync(entity);
+        await orderContext.SaveChangesAsync();
+        return entity;
+    }
 
-    //Single              --- select top 2 * from mi_tabla where id = 1 //error si hay mas de uno y espera no null
-    //SingleorDefault     --- select top 2 * from mi_tabla where id = 1 //error si hay mas de uno 
-    //First               --- select top 1 tiene que haber datos
-    //FirstOrDefault        --- select top 1 
-    //Find                 --- nos trae el Id select * from datos where id= 1
+    public async Task UpdateAsync(T entity)
+    {
+
+        orderContext.Entry(entity).State = EntityState.Modified;
+        await orderContext.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(T entity)
+    {
+        orderContext.Set<T>().Remove(entity);
+        await orderContext.SaveChangesAsync();
+
+    }
+
 
 }
 
