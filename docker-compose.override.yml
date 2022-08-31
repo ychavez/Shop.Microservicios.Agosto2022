@@ -37,6 +37,22 @@ services:
   ordering.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=Passw0rd23
     ports:
-      - "80"
+      - "8002:80"
+    container_name: "ordering.api"
 
+
+  orderdb:
+   container_name: "orderdb"
+   environment:
+       SA_PASSWORD: "Passw0rd23"
+       ACCEPT_EULA: "Y"
+   ports:
+     - "1433:1433"
+
+  rabbitmq:
+   container_name: rabbitmq
+   ports:
+    - "5672:5672"
+    - "15672:15672"

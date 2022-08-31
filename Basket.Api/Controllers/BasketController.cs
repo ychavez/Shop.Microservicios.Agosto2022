@@ -35,7 +35,21 @@ public class BasketController : ControllerBase
         return Ok();
     }
 
+    [HttpPost("Checkout")]
+    public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout) 
+    {
+        var basket = (await basketRepository.GetBasket(basketCheckout.UserName))
+            ?? throw new Exception("asfgsdfg");
 
+        if (basket is null)
+            return BadRequest();
+
+      
+
+       
+       
+    
+    }
 
 
 }

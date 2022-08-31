@@ -25,6 +25,12 @@ services:
     build:
       context: .
       dockerfile: Ordering.Api/Dockerfile
+ 
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+ 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
 
 volumes:
   mongo_data:

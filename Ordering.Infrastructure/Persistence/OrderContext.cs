@@ -8,6 +8,11 @@ namespace Ordering.Infrastructure.Persistence;
 
 public class OrderContext : DbContext
 {
+    public OrderContext(DbContextOptions<OrderContext> options) : base(options)
+    {
+
+    }
+
     public DbSet<Order> Orders { get; set; }
     public Guid TenantId { get; private set; }
 
@@ -68,7 +73,7 @@ public class OrderContext : DbContext
         (OrderContext context) where T : EntityBase, IMultitenant
     {
         Expression<Func<T, bool>> tenantFilter = x => x.TenantId == context.TenantId;
-       
+
         return tenantFilter;
     }
 

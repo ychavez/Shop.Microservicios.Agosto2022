@@ -18,7 +18,6 @@ namespace Ordering.Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
 
-
             return services;
         }
     }

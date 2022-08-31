@@ -1,4 +1,5 @@
 using Basket.Api.Repositories;
+using MassTransit;
 
 namespace Basket.Api
 {
@@ -23,6 +24,17 @@ namespace Basket.Api
             });
 
             builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
+            /// builder.Services.AddMassTransitHostedService();
+            /// 
+
+            builder.Services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+                });
+            });
 
             var app = builder.Build();
 
