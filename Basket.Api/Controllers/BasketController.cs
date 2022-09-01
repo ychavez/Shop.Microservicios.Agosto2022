@@ -1,5 +1,8 @@
-﻿using Basket.Api.Entities;
+﻿using AutoMapper;
+using Basket.Api.Entities;
 using Basket.Api.Repositories;
+using EventBusMessages.Events;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basket.Api.Controllers;
@@ -9,10 +12,16 @@ namespace Basket.Api.Controllers;
 public class BasketController : ControllerBase
 {
     private readonly IBasketRepository basketRepository;
+    private readonly IMapper mapper;
+    private readonly IPublishEndpoint publishEndpoint;
 
-    public BasketController(IBasketRepository basketRepository)
+    public BasketController(IBasketRepository basketRepository, 
+                            IMapper mapper, 
+                            IPublishEndpoint publishEndpoint)
     {
         this.basketRepository = basketRepository;
+        this.mapper = mapper;
+        this.publishEndpoint = publishEndpoint;
     }
 
     [HttpGet("{userName}")]
@@ -38,20 +47,20 @@ public class BasketController : ControllerBase
     [HttpPost("Checkout")]
     public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout) 
     {
-        var basket = (await basketRepository.GetBasket(basketCheckout.UserName))
-            ?? throw new Exception("asfgsdfg");
+        var basket = await basketRepository.GetBasket(basketCheckout.UserName);
 
         if (basket is null)
             return BadRequest();
 
-      
+        //Mapeamos el objecto de checkout a el evento
+        var eventMessage = mapper.Map<BasketCheckoutEvent>(basketCheckout);
+        eventMessage.TotalPrice = basket.TotalPrice;
 
-      
+        ///Enviamos el evento a RabbitMQ
+        await publishEndpoint.Publish(eventMessage);
 
-       
-       
-    
+        await basketRepository.DeleteBasket(basket.UserName);
+
+        return Accepted();    
     }
-
-
 }

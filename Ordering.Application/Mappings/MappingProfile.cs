@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ordering.Application.Features.Orders.Commands.CheckoutOrder;
 using Ordering.Application.Features.Orders.Queries.GetOrdersList;
 using Ordering.Domain.Entities;
 
@@ -12,6 +13,8 @@ namespace Ordering.Application.Mappings
                 .ForMember(dest => dest.FullName, opt =>
                             opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ReverseMap();
+
+            CreateMap<Order, CheckoutOrderCommand>().ReverseMap();
         }
     }
 }

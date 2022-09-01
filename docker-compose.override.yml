@@ -23,6 +23,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings__ConnectionString=basketdb:6379"
+      - "EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672"
     ports:
       - "8001:80"
     container_name: "basket.api"
@@ -38,6 +39,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=Passw0rd23
+      - "EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672"
     ports:
       - "8002:80"
     container_name: "ordering.api"
