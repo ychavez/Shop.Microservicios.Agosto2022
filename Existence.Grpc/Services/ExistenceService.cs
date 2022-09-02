@@ -6,6 +6,11 @@ namespace Existence.Grpc.Services
 {
     public class ExistenceService: ProductExistence.ProductExistenceBase
     {
+
+        void hola() 
+        {
+        
+        }
         public async override Task<CheckExistenceReponse> 
             CheckExistence(CheckExistenceRequest request, ServerCallContext context)
         {
