@@ -2,6 +2,7 @@
 using Basket.Api.Entities;
 using Basket.Api.Repositories;
 using EventBusMessages.Events;
+using Existence.Grpc.Protos;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,14 +15,17 @@ public class BasketController : ControllerBase
     private readonly IBasketRepository basketRepository;
     private readonly IMapper mapper;
     private readonly IPublishEndpoint publishEndpoint;
+    private readonly ProductExistence.ProductExistenceClient productExistence;
 
-    public BasketController(IBasketRepository basketRepository, 
-                            IMapper mapper, 
-                            IPublishEndpoint publishEndpoint)
+    public BasketController(IBasketRepository basketRepository,
+                            IMapper mapper,
+                            IPublishEndpoint publishEndpoint,
+                            ProductExistence.ProductExistenceClient productExistence)
     {
         this.basketRepository = basketRepository;
         this.mapper = mapper;
         this.publishEndpoint = publishEndpoint;
+        this.productExistence = productExistence;
     }
 
     [HttpGet("{userName}")]
@@ -34,7 +38,24 @@ public class BasketController : ControllerBase
 
     [HttpPost]
     public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart shoppingCart)
-      => Ok(await basketRepository.UpdateBasket(shoppingCart));
+    {
+
+        foreach (var item in shoppingCart.Items)
+        {
+            var productsOnStock =
+                    productExistence.CheckExistence(
+                        new CheckExistenceRequest { Id = item.ProductId });
+            
+            if (productsOnStock.ProductQTY >= item.Quantity)
+                continue;
+
+            throw new 
+                BadHttpRequestException($"El producto {item.ProductName} " +
+                $"no cuenta con sufuciente stock");
+        }
+
+        return Ok(await basketRepository.UpdateBasket(shoppingCart));
+    }
 
 
     [HttpDelete("{userName}")]
@@ -45,7 +66,7 @@ public class BasketController : ControllerBase
     }
 
     [HttpPost("Checkout")]
-    public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout) 
+    public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout)
     {
         var basket = await basketRepository.GetBasket(basketCheckout.UserName);
 
@@ -61,6 +82,6 @@ public class BasketController : ControllerBase
 
         await basketRepository.DeleteBasket(basket.UserName);
 
-        return Accepted();    
+        return Accepted();
     }
 }

@@ -32,6 +32,13 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
 
+  existence.grpc:
+    image: ${DOCKER_REGISTRY-}existencegrpc
+    build:
+      context: .
+      dockerfile: Existence.Grpc/Dockerfile
+
 volumes:
   mongo_data:
+
 

@@ -19,6 +19,7 @@ public class CheckoutConsumer : IConsumer<BasketCheckoutEvent>
     public async Task Consume(ConsumeContext<BasketCheckoutEvent> context)
     {
         var command = mapper.Map<CheckoutOrderCommand>(context.Message);
+
         _ = await mediator.Send(command);
     }
 }

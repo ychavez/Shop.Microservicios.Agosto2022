@@ -1,4 +1,5 @@
 using Basket.Api.Repositories;
+using Existence.Grpc.Protos;
 using MassTransit;
 
 namespace Basket.Api
@@ -9,6 +10,7 @@ namespace Basket.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+          
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -36,6 +38,8 @@ namespace Basket.Api
                 });
             });
 
+            builder.Services.AddGrpcClient<ProductExistence.ProductExistenceClient>
+                 (x => x.Address = new Uri(builder.Configuration["GrpcSettings:HostAddress"]));
 
             builder.Services.AddAutoMapper(typeof(Program));
 
