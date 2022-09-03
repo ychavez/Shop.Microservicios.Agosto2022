@@ -47,7 +47,7 @@ namespace Authentication.Api.Controllers
              new Claim(JwtRegisteredClaimNames.Jti,user.Id),
              new Claim(ClaimTypes.GroupSid,user.Tenant.ToString()),
              new Claim(JwtRegisteredClaimNames.Iat,now.ToUniversalTime().ToString(),ClaimValueTypes.Integer64),
-             new Claim(JwtRegisteredClaimNames.Email,user.Email)
+            // new Claim(JwtRegisteredClaimNames.Email,user.Email)
             };
 
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
