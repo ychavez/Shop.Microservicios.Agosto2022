@@ -1,11 +1,15 @@
 using EventBusMessages.Common;
 using MassTransit;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.IdentityModel.Tokens;
 using Ordering.Api.EventBusConsumer;
 using Ordering.Application;
 using Ordering.Application.Contracts;
 using Ordering.Infrastructure.Persistence;
 using Ordering.Infrastructure.Repositories;
+using System.Text;
 
 namespace Ordering.Api
 {
@@ -48,6 +52,28 @@ namespace Ordering.Api
                     .GetConnectionString("OrderingConnectionString"));
             });
 
+            var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("Identity:Key"));
+
+            builder.Services.AddAuthentication(x =>
+            {
+
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                };
+            });
+
             builder.Services.AddScoped(typeof(IRepositoryBase<>),
                typeof(RepositoryBase<>));
 
@@ -61,6 +87,7 @@ namespace Ordering.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
