@@ -72,3 +72,12 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  authentication.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__OrderingConnectionString=Server=orderdb;Database=AccouuntDb;User Id=sa;Password=Passw0rd23
+    ports:
+      - "8003:80"
+    container_name: "authentication.api"
+

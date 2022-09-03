@@ -39,7 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBusMessages", "EventBu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Existence", "Existence", "{ED27D1FB-CD63-42B5-9242-71652A9CFA5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Existence.Grpc", "Existence.Grpc\Existence.Grpc.csproj", "{F520B847-E330-4D03-A630-B1E4AABB5FDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Existence.Grpc", "Existence.Grpc\Existence.Grpc.csproj", "{F520B847-E330-4D03-A630-B1E4AABB5FDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.Api", "Authentication.Api\Authentication.Api.csproj", "{1634A689-5F91-431B-AD2E-BC70D163F0D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{F520B847-E330-4D03-A630-B1E4AABB5FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F520B847-E330-4D03-A630-B1E4AABB5FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F520B847-E330-4D03-A630-B1E4AABB5FDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1634A689-5F91-431B-AD2E-BC70D163F0D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1634A689-5F91-431B-AD2E-BC70D163F0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1634A689-5F91-431B-AD2E-BC70D163F0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1634A689-5F91-431B-AD2E-BC70D163F0D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +110,7 @@ Global
 		{3A5032F4-D118-424C-A5F2-12FEB1F252F8} = {583F536D-4712-4DAE-A45C-4BDA89096846}
 		{ED27D1FB-CD63-42B5-9242-71652A9CFA5C} = {64161F75-2629-41C3-BC69-14F95E018150}
 		{F520B847-E330-4D03-A630-B1E4AABB5FDE} = {ED27D1FB-CD63-42B5-9242-71652A9CFA5C}
+		{1634A689-5F91-431B-AD2E-BC70D163F0D1} = {73E163C5-44A4-4028-BD4C-7336C814EDDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9BCAB50C-9E18-449E-B0EC-8A4C399BA7BD}

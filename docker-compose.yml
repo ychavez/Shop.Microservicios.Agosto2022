@@ -38,7 +38,14 @@ services:
       context: .
       dockerfile: Existence.Grpc/Dockerfile
 
+  authentication.api:
+    image: ${DOCKER_REGISTRY-}authenticationapi
+    build:
+      context: .
+      dockerfile: Authentication.Api/Dockerfile
+
 volumes:
   mongo_data:
+
 
 
